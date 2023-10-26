@@ -11,7 +11,7 @@ exports.createPollPostController = async (req, res, next) => {
             vote: 0,
         }
     });
-    let poll = new Poll({
+    const poll = new Poll({
         title,
         description,
         options,
@@ -26,7 +26,7 @@ exports.createPollPostController = async (req, res, next) => {
 
 exports.getAllPolls = async (req, res, next) => {
     try {
-        let polls = await Poll.find();
+        const polls = await Poll.find();
         res.render('polls', { polls });
     } catch (error) {
         console.log(error);
@@ -34,13 +34,13 @@ exports.getAllPolls = async (req, res, next) => {
 }
 
 exports.viewPollGetController = async (req, res, next) => {
-    let id = req.params.id;
+    const id = req.params.id;
     try {
-        let poll = await Poll.findById(id);
-        let options = [...poll.options];
-        let result = [];
+        const poll = await Poll.findById(id);
+        const options = [...poll.options];
+        const result = [];
         options.forEach((option) => {
-            let percentage = (option.vote * 100) / poll.totalVote;
+            const percentage = (option.vote * 100) / poll.totalVote;
             result.push({
                 ...option._doc,
                 percentage: percentage ? percentage : 0
@@ -54,14 +54,14 @@ exports.viewPollGetController = async (req, res, next) => {
 }
 
 exports.viewPollPostController = async (req, res, next) => {
-    let id = req.params.id;
-    let optionId = req.body.option;
+    const id = req.params.id;
+    const optionId = req.body.option;
     try {
-        let poll = await Poll.findById(id);
-        let options = [...poll.options];
-        let index = options.findIndex((option) => option.id === optionId);
+        const poll = await Poll.findById(id);
+        const options = [...poll.options];
+        const index = options.findIndex((option) => option.id === optionId);
         options[index].vote++;
-        let totalVote = poll.totalVote + 1;
+        const totalVote = poll.totalVote + 1;
 
         await Poll.findOneAndUpdate(
             { _id: poll._id },

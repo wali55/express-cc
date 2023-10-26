@@ -43,21 +43,21 @@
     </div>
 
     <script>
-        let options = document.getElementById('options');
-        let addOption = document.getElementById('addOption');
+        const options = document.getElementById('options');
+        const addOption = document.getElementById('addOption');
 
         let currentOptionNumber = 3;
         addOption.addEventListener('click', function(e) {
             e.preventDefault();
-            let option = createNewOption();
+            const option = createNewOption();
             options.appendChild(option);
         });
 
         function createNewOption() {
-            let div = document.createElement('div');
+            const div = document.createElement('div');
             div.className = 'form-group';
 
-            let input = document.createElement('input');
+            const input = document.createElement('input');
             input.type = 'text';
             input.name = 'options';
             input.placeholder = 'Option ' + currentOptionNumber++;
